@@ -1,0 +1,8 @@
+<config>
+   <modules>
+      <Diglin_Github>
+         <active>true</active>
+         <codePool>community</codePool>
+      </Diglin_Github>
+   </modules>
+</config>

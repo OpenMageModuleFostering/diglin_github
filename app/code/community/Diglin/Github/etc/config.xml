@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Diglin_Github>
+            <version>1.1.0</version>
+        </Diglin_Github>
+    </modules>
+
+    <default>
+        <github>
+            <config>
+                <enabled>0</enabled>
+            </config>
+            <link_account>
+                <email_identity>general</email_identity>
+                <email_template>github_existing_customer_link_email_template</email_template>
+            </link_account>
+        </github>
+    </default>
+
+
+    <global>
+        <fieldsets>
+            <customer_account>
+                <github_login>
+                    <create>1</create>
+                    <update>1</update>
+                </github_login>
+            </customer_account>
+        </fieldsets>
+
+        <blocks>
+            <github>
+                <class>Diglin_Github_Block</class>
+            </github>
+            <adminhtml>
+                <rewrite>
+                    <customer_grid>Diglin_Github_Block_Adminhtml_Grid</customer_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+
+        <helpers>
+            <github>
+                <class>Diglin_Github_Helper</class>
+            </github>
+        </helpers>
+
+        <models>
+            <github>
+                <class>Diglin_Github_Model</class>
+                <resourceModel>github_resource</resourceModel>
+            </github>
+            <github_resource>
+                <class>Diglin_Github_Model_Resource</class>
+                <entities>
+                    <confirmation>
+                        <table>github_confirmation</table>
+                    </confirmation>
+                </entities>
+            </github_resource>
+        </models>
+
+        <resources>
+            <github_setup>
+                <setup>
+                    <module>Diglin_Github</module>
+                    <class>Diglin_Github_Model_Resource_Setup</class>
+                </setup>
+            </github_setup>
+        </resources>
+
+        <template>
+            <email>
+                <github_existing_customer_link_email_template translate="label" module="github">
+                    <label>Github Link Account Confirmation</label>
+                    <file>github/existing_customer_link_confirmation.html</file>
+                    <type>html</type>
+                </github_existing_customer_link_email_template>
+            </email>
+        </template>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <github>
+                    <file>github.xml</file>
+                </github>
+            </updates>
+        </layout>
+
+        <routers>
+            <github>
+                <use>standard</use>
+                <args>
+                    <module>Diglin_Github</module>
+                    <frontName>github</frontName>
+                </args>
+            </github>
+        </routers>
+
+        <translate>
+            <modules>
+                <github>
+                    <files>
+                        <default>Diglin_Github.csv</default>
+                    </files>
+                </github>
+            </modules>
+        </translate>
+    </frontend>
+
+    <adminhtml>
+        <events>
+            <eav_collection_abstract_load_before>
+                <observers>
+                    <github_load_collection>
+                        <class>github/observer</class>
+                        <method>addAttributeToCollection</method>
+                    </github_load_collection>
+                </observers>
+            </eav_collection_abstract_load_before>
+        </events>
+    </adminhtml>
+</config>
